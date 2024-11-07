@@ -14,4 +14,19 @@
 # define WRONGANIMAL_HPP
 
 # include "Animal.hpp"
+
+class WrongAnimal
+{
+	protected:
+			
+			std::string _type;
+	public:
+
+			WrongAnimal(void);
+			WrongAnimal(WrongAnimal const &);
+			WrongAnimal& operator=(WrongAnimal const &);
+			void	makeSound(void) const;
+			~WrongAnimal(void);
+};
+
 #endif

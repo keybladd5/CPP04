@@ -14,5 +14,16 @@
 # define DOG_HPP
 
 # include "Animal.hpp"
-#endif
 
+class Dog: public Animal
+{
+	public:
+
+			Dog(void);
+			Dog(Dog const &);
+			Dog& operator=(Dog const &);
+			void	makeSound(void) const;
+			~Dog(void);
+};
+
+#endif

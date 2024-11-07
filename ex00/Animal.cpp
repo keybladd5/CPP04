@@ -20,14 +20,28 @@ Animal::Animal(void)
 
 Animal::Animal(Animal const &src)
 {
-        std::cout << "Copy constructor Animal constructor called" << std::endl;
-        *this = src;
+	std::cout << "Copy constructor Animal constructor called" << std::endl;
+	*this = src;
 }
 
 Animal&       Animal::operator=(Animal const &src)
 {
-        std::cout << "copy assignment operator called" << std::endl;
-        if (this != &src)
-			_type = src._type;
-        return (*this);
+	std::cout << "copy assignment operator called" << std::endl;
+	if (this != &src)
+		_type = src._type;
+	return (*this);
+}
+
+std::string Animal::getType(void) const
+{
+    return (_type);
+}
+void    Animal::makeSound(void) const
+{
+	std::cout << "* * generical sound * *" << std::endl;
+}
+
+Animal::~Animal(void)
+{
+	std::cout << "Default Animal destructor called" << std::endl;
 }

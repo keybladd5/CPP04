@@ -14,5 +14,16 @@
 # define CAT_HPP
 
 # include "Animal.hpp"
-#endif
 
+class Cat: public Animal
+{
+	public:
+
+			Cat(void);
+			Cat(Cat const &);
+			Cat& operator=(Cat const &);
+			void	makeSound(void) const;
+			~Cat(void);
+};
+
+#endif

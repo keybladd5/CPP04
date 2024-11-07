@@ -12,17 +12,17 @@
 
 
 
-NAME	=	name
+NAME	=	Polymorphism
 
 CC		=	c++
 
 FLAGS	=	-g -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address -pedantic 
 
-SRC		=	.cpp main.cpp 
+SRC		=	Animal.cpp Dog.cpp main.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp 
 
 OBJ		=	$(SRC:.cpp=.o)
 
-INCLUDE = 	.hpp
+INCLUDE = 	Dog.hpp Animal.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp 
 
 DEPS	=	$(SRC:.cpp=.d)
 

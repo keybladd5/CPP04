@@ -11,3 +11,33 @@
 /* ************************************************************************** */
 
 #include "WrongCat.hpp"
+
+WrongCat::WrongCat(void)
+{
+	_type = "default_WrongCat";
+	std::cout << "Default WrongCat constructor called" << std::endl;
+}
+
+WrongCat::WrongCat(WrongCat const &src)
+{
+	std::cout << "Copy constructor WrongCat constructor called" << std::endl;
+	*this = src;
+}
+
+WrongCat&       WrongCat::operator=(WrongCat const &src)
+{
+	std::cout << "copy assignment operator called" << std::endl;
+	if (this != &src)
+		_type = src._type;
+	return (*this);
+}
+
+void    WrongCat::makeSound(void) const
+{
+	std::cout << "* * Meoowwww * *" << std::endl;
+}
+
+WrongCat::~WrongCat(void)
+{
+	std::cout << "Default WrongCat destructor called" << std::endl;
+}

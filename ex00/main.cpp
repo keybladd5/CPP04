@@ -16,14 +16,22 @@
 
 int main()
 {
-	/*const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	const Animal* meta = new(std::nothrow) Animal();
+	if(!meta)
+		return(1);
+	const Animal* j = new(std::nothrow) Dog();
+	if(!j)
+		return(delete meta, 1);
+	const Animal* i = new(std::nothrow) Cat();
+	if(!i)
+		return(delete meta, delete j, 1);
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	i->makeSound(); //will output the cat sound!
 	j->makeSound();
-	meta->makeSound();*/
-
+	meta->makeSound();
+	delete meta;
+	delete j;
+	delete i;
 	return 0;
 }

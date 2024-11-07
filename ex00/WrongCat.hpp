@@ -14,4 +14,17 @@
 # define WRONGCAT_HPP
 
 # include "WrongAnimal.hpp"
+
+class WrongCat: public WrongAnimal
+{
+	public:
+
+			WrongCat(void);
+			WrongCat(WrongCat const &);
+			WrongCat& operator=(WrongCat const &);
+			void	makeSound(void) const;
+			~WrongCat(void);
+};
+
 #endif
+
