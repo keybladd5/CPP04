@@ -10,21 +10,14 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = Polymorphism
 
+#########
+RM = rm -rf
+CC = c++
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98 -fsanitize=address -pedantic 
 
-NAME	=	Polymorphism
-
-CC		=	c++
-
-FLAGS	=	-g -Wall -Wextra -Werror -std=c++98 -MMD -fsanitize=address -pedantic 
-
-SRC		=	Animal.cpp Dog.cpp main.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp 
-
-OBJ		=	$(SRC:.cpp=.o)
-
-INCLUDE = 	Dog.hpp Animal.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp 
-
-DEPS	=	$(SRC:.cpp=.d)
+#########
 
 #COLORS
 GREEN		=	\033[38;5;154m
@@ -34,25 +27,42 @@ BLUE		=	\033[38;5;14m
 NC			=	\033[0m
 YELLOW		=	\033[38;5;190m
 
-all		:	$(NAME)
+#########
+FILES = Animal Dog main Cat WrongAnimal WrongCat
 
-%.o:%.cpp Makefile
-	@$(CC) $(FLAGS) -c $< -o $@
+SRC = $(addsuffix .cpp, $(FILES))
 
-$(NAME)	:	$(OBJ)
-		@$(CC) $(FLAGS) $(OBJ) -o $(NAME) 
-		@echo "${PURPLE}CPP04 ex00 binary Compiled${NC}"
+vpath %.cpp
+#########
+
+#########
+OBJ_DIR = build
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
+DEP = $(addsuffix .d, $(basename $(OBJ)))
+#########
+
+#########
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	@${CC} -MMD $(CFLAGS) -c -I. $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(OBJ) Makefile
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
+	@echo "${PURPLE}CPP04 ex00 binary Compiled${NC}"
 
 clean:
-		@rm -rf $(OBJ) $(DEPS)
-		@echo "${RED}CPP04 ex00 object removed${NC}"
+	@$(RM) $(OBJ) $(DEP)
+	@$(RM) -r $(OBJ_DIR)
+	@echo "${RED}CPP04 ex00 objects removeds${NC}"
 
-fclean:		clean
-		@rm -rf $(NAME)
-		@echo "${RED}CPP04 ex00 binary removed${NC}"
+fclean: clean
+	@$(RM) $(NAME)
+	@echo "${RED}CPP04 ex00 binary removed${NC}"
 
-re:		fclean all
+re:	fclean all
 
--include $(DEPS)
+.PHONY: all clean fclean re release
 
-.PHONY		:	all clean fclean re
+-include $(DEP)

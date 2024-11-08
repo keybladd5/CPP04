@@ -12,13 +12,13 @@
 
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat(void)
+WrongCat::WrongCat(void) : WrongAnimal()
 {
 	_type = "default_WrongCat";
 	std::cout << "Default WrongCat constructor called" << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat const &src)
+WrongCat::WrongCat(WrongCat const &src) : WrongAnimal(src)
 {
 	std::cout << "Copy constructor WrongCat constructor called" << std::endl;
 	*this = src;

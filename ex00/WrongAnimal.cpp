@@ -37,6 +37,11 @@ void    WrongAnimal::makeSound(void) const
 	std::cout << "* * genrical sound * *" << std::endl;
 }
 
+std::string WrongAnimal::getType(void) const
+{
+    return (_type);
+}
+
 WrongAnimal::~WrongAnimal(void)
 {
 	std::cout << "Default WrongAnimal destructor called" << std::endl;
