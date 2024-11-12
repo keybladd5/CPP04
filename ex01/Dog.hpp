@@ -17,11 +17,17 @@
 
 class Dog: public Animal
 {
+	private:
+			
+			Brain *_brain;
 	public:
 
 			Dog(void);
 			Dog(Dog const &);
 			Dog& operator=(Dog const &);
+			void	set_ideas(void);
+			void	set_ideas(unsigned int , std::string);
+			std::string get_ideas(int i);
 			void	makeSound(void) const;
 			~Dog(void);
 };

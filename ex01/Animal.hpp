@@ -21,13 +21,10 @@ class Animal
 	protected:
 			
 			std::string _type;
-			Brain *_brain;
 	public:
 
 			Animal(void);
 			Animal(Animal const &);
-			void	set_ideas(void);
-			std::string get_ideas(int i);
 			Animal& operator=(Animal const &);
 			std::string getType(void) const;
 			virtual void	makeSound(void) const;

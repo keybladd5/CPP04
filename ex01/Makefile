@@ -14,8 +14,8 @@ NAME = bin
 
 #########
 RM = rm -rf
-CC = c++
-CFLAGS = -g -Wall -Wextra -Werror -std=c++98 #-fsanitize=address -pedantic 
+CC = g++
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98 -fsanitize=address -pedantic 
 
 #########
 

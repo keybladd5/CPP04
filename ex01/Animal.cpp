@@ -15,7 +15,6 @@
 Animal::Animal(void)
 {
 	_type = "default_animal";
-	_brain = new Brain;
 	std::cout << "Default Animal constructor called" << std::endl;
 }
 
@@ -33,17 +32,6 @@ Animal&       Animal::operator=(Animal const &src)
 	return (*this);
 }
 
-void	Animal::set_ideas(void)
-{
-	for(int i = 0; i < 100; i++)
-		_brain->ideas[i] = "idea ";
-}
-
-std::string Animal::get_ideas(int i)
-{
-	return(_brain->ideas[i]); 
-}
-
 std::string Animal::getType(void) const
 {
     return (_type);
@@ -56,6 +44,5 @@ void    Animal::makeSound(void) const
 
 Animal::~Animal(void)
 {
-	delete _brain;
 	std::cout << "Default Animal destructor called" << std::endl;
 }
