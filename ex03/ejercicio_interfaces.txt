@@ -1,0 +1,100 @@
+
+Las interfaces no existen en C++98 (ni siquiera en C++20). Sin embargo, las clases abstractas puras a menudo se llaman interfaces.
+Por lo tanto, en este último ejercicio, intentemos implementar interfaces para asegurarnos de que entendiste este módulo.
+
+Completa la definición de la siguiente clase AMateria e implementa las funciones miembro necesarias:
+
+class AMateria  
+{  
+protected:  
+    [...]  
+public:  
+    AMateria(std::string const & type);  
+    [...]  
+    std::string const & getType() const; // Devuelve el tipo de materia  
+    virtual AMateria* clone() const = 0;  
+    virtual void use(ICharacter& target);  
+};
+
+Implementa las clases concretas de Materias Ice y Cure. Usa sus nombres en minúsculas ("ice" para Ice, "cure" para Cure) para establecer sus tipos. Por supuesto, su función miembro clone() devolverá una nueva instancia del mismo tipo (es decir, si clonas una materia de tipo Ice, obtendrás una nueva materia de tipo Ice).
+
+La función miembro use(ICharacter&) mostrará:
+- Ice: "* shoots an ice bolt at <name> *"
+- Cure: "* heals <name>’s wounds *"
+
+<name> es el nombre del personaje pasado como parámetro. No imprimas los símbolos de ángulo (< y >).
+
+Al asignar una Materia a otra, copiar el tipo no tiene sentido.
+
+Escribe la clase concreta Character, que implementará la siguiente interfaz:
+
+class ICharacter  
+{  
+public:  
+    virtual ~ICharacter() {}  
+    virtual std::string const & getName() const = 0;  
+    virtual void equip(AMateria* m) = 0;  
+    virtual void unequip(int idx) = 0;  
+    virtual void use(int idx, ICharacter& target) = 0;  
+};
+
+El personaje (Character) posee un inventario de 4 espacios, lo que significa que puede contener como máximo 4 Materias. El inventario estará vacío al construirse. Las Materias se equipan en el primer espacio vacío que encuentren, siguiendo este orden: del espacio 0 al espacio 3.
+
+Si intentas añadir una Materia a un inventario lleno, o usar/des-equipar una Materia inexistente, no hagas nada (pero los bugs están prohibidos).
+
+La función miembro unequip() NO debe borrar la Materia. Maneja las Materias que tu personaje deje en el suelo como prefieras. Guarda las direcciones antes de llamar a unequip(), o cualquier otra cosa, pero recuerda que debes evitar fugas de memoria.
+
+La función miembro use(int, ICharacter&) debe usar la Materia en el espacio [idx] y pasar el parámetro target a la función AMateria::use.
+
+El inventario de tu personaje debe ser capaz de soportar cualquier tipo de AMateria.
+
+Tu clase Character debe tener un constructor que tome su nombre como parámetro. Cualquier copia (ya sea con el constructor de copia o el operador de asignación) de un personaje debe ser profunda. Durante la copia, las Materias del personaje deben eliminarse antes de añadir las nuevas a su inventario. Por supuesto, las Materias deben eliminarse cuando el personaje sea destruido.
+
+Escribe la clase concreta MateriaSource, que implementará la siguiente interfaz:
+
+class IMateriaSource  
+{  
+public:  
+    virtual ~IMateriaSource() {}  
+    virtual void learnMateria(AMateria*) = 0;  
+    virtual AMateria* createMateria(std::string const & type) = 0;  
+};
+
+- learnMateria(AMateria*)
+  Copia la Materia pasada como parámetro y la almacena en memoria para que pueda clonarse más tarde. Como el personaje, MateriaSource puede conocer como máximo 4 Materias. Estas no tienen que ser necesariamente únicas.
+
+- createMateria(std::string const &)
+  Devuelve una nueva Materia. Esta será una copia de la Materia previamente aprendida por MateriaSource cuyo tipo coincida con el pasado como parámetro. Devuelve 0 si el tipo es desconocido.
+
+En resumen, tu MateriaSource debe ser capaz de aprender "plantillas" de Materias para crearlas cuando se necesiten. Luego, podrás generar una nueva Materia usando simplemente una cadena que identifique su tipo.
+
+Código de ejemplo:
+
+int main()  
+{  
+    IMateriaSource* src = new MateriaSource();  
+    src->learnMateria(new Ice());  
+    src->learnMateria(new Cure());  
+    ICharacter* me = new Character("me");  
+    AMateria* tmp;  
+    tmp = src->createMateria("ice");  
+    me->equip(tmp);  
+    tmp = src->createMateria("cure");  
+    me->equip(tmp);  
+    ICharacter* bob = new Character("bob");  
+    me->use(0, *bob);  
+    me->use(1, *bob);  
+    delete bob;  
+    delete me;  
+    delete src;  
+    return 0;  
+}
+
+Debería producir esta salida:
+
+$> clang++ -W -Wall -Werror *.cpp  
+$> ./a.out | cat -e  
+* shoots an ice bolt at bob *$  
+* heals bob's wounds *$  
+
+Como de costumbre, implementa y entrega más pruebas además de las que se dan arriba. Puedes pasar este módulo sin hacer el ejercicio 03.
