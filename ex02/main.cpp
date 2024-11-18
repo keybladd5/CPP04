@@ -14,8 +14,16 @@
 #include "Cat.hpp"
 #include "WrongCat.hpp"
 
+// In the first scope, it doesn't work because it is an ABSTRACT CLASS.  
+// However, in the second scope, it works because 'j' is a ptr, initialized as a Dog or Cat obj.  
+// The abstract Animal class is used as an interface to instantiate derived classes.
+
 int main()
 {
+	{
+		//Animal test;
+		//test.makeSound();
+	}
 	{
 		Animal* j[10];
 		for (int x = 0; x < 10; x++)
