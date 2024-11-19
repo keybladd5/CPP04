@@ -14,7 +14,7 @@ NAME = bin
 
 #########
 RM = rm -rf
-CC = g++
+CC = c++
 CFLAGS = -g -Wall -Wextra -Werror -std=c++98 -fsanitize=address -pedantic 
 
 #########
@@ -28,7 +28,7 @@ NC			=	\033[0m
 YELLOW		=	\033[38;5;190m
 
 #########
-FILES = main
+FILES = main Ice MateriaSource AMateria Character Cure 
 
 SRC = $(addsuffix .cpp, $(FILES))
 
@@ -50,7 +50,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
-	@echo "${PURPLE}CPP04 ex02 binary Compiled${NC}"
+	@echo "${PURPLE}CPP04 ex03 binary Compiled${NC}"
 
 clean:
 	@$(RM) $(OBJ) $(DEP)

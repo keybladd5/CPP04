@@ -39,5 +39,42 @@ Character&	Character::operator=(Character const &src)
 
 Character::~Character()
 {
+	for (int i = 0; i < 4; i++)
+	{
+		if (_inv[i])
+			delete _inv[i];
+	}
+}
 
+std::string const & Character::getName() const
+{
+	return (_name);
+}
+
+void Character::equip(AMateria* m)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (_inv[i] == NULL)
+		{
+			_inv[i] = m;
+			break;
+		}
+	}
+}
+
+void Character::unequip(int idx)
+{
+	if ((idx >= 0 && idx <= 3) && _inv[idx])
+		_inv[idx] = NULL;
+}
+
+void Character::use(int idx, ICharacter& target)
+{
+	if(!(idx >= 0 && idx <= 3) || !_inv[idx])
+	{
+		std::cout << "No materia aviable in " << idx << " slot from " << _name << " character" << std::endl;
+		return ;
+	}
+	_inv[idx]->use(target);
 }
