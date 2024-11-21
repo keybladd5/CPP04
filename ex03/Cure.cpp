@@ -30,7 +30,7 @@ Cure&       Cure::operator=(Cure const &src)
 
 AMateria*	Cure::clone() const
 {
-	AMateria *ptr = new(std::nothrow) Cure();
+	AMateria *ptr = new Cure();
 	return (ptr);
 }
 

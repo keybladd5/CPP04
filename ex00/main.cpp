@@ -28,14 +28,18 @@ int main()
 	const WrongAnimal* x = new(std::nothrow) WrongCat();
 	if(!i)
 		return(delete meta, delete j, 1);
+	const WrongCat c;
+
 	std::cout << meta->getType() << " " << std::endl;
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	std::cout << x->getType() << " " << std::endl;
+	std::cout << c.getType() << " " << std::endl;
 	meta->makeSound();
 	j->makeSound(); //will output the cat sound!
 	i->makeSound();
 	x->makeSound();
+	c.makeSound();
 	delete meta;
 	delete j;
 	delete i;
