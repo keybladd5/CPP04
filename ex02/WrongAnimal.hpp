@@ -27,7 +27,7 @@ class WrongAnimal
 			WrongAnimal& operator=(WrongAnimal const &);
 			void	makeSound(void) const;
 			std::string getType(void) const;
-			~WrongAnimal(void);
+			virtual ~WrongAnimal(void);
 };
 
 #endif
