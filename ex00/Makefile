@@ -49,7 +49,7 @@ $(OBJ_DIR)/%.o: %.cpp
 all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "${PURPLE}CPP04 ex00 binary Compiled${NC}"
 
 clean:
